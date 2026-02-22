@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import joblib
 import pandas as pd
@@ -10,21 +11,32 @@ MODEL_PATH = "models/best_model.pkl"
 MEDICAL_THRESHOLD = 0.1  # Optimized for high recall
 
 # ==============================
-# LOAD MODEL
-# ==============================
-try:
-    model = joblib.load(MODEL_PATH)
-except Exception as e:
-    raise RuntimeError(f"Failed to load model: {e}")
-
-# ==============================
 # FASTAPI INIT
 # ==============================
 app = FastAPI(
     title="Stroke Risk Prediction API",
     description="Medical-grade stroke prediction system with optimized recall threshold.",
-    version="1.0"
+    version="1.1"
 )
+
+# ==============================
+# CORS FIX (IMPORTANT)
+# ==============================
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all for development
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ==============================
+# LOAD MODEL SAFELY
+# ==============================
+try:
+    model = joblib.load(MODEL_PATH)
+except Exception as e:
+    raise RuntimeError(f"Failed to load model: {e}")
 
 # ==============================
 # INPUT SCHEMA
