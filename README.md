@@ -1,95 +1,164 @@
-# 🧠 Stroke Risk Prediction System (End-to-End ML Deployment)
+# 🧠 Stroke Risk Prediction System (End-to-End ML SaaS)
 
-## 📌 Overview
+## 🌍 Live Application
 
-This project is a production-ready Machine Learning system for predicting stroke risk based on patient health parameters. 
+🔹 **Frontend Dashboard**  
+https://stroke-prediction-frontend.onrender.com/
 
-The system includes:
-- Data preprocessing pipeline
-- Imbalance handling using SMOTE
-- Cross-validation for robustness
-- Threshold optimization for medical recall improvement
-- SHAP explainability
-- FastAPI REST API
-- Public cloud deployment
+🔹 **Backend API (Swagger Docs)**  
+https://stroke-prediction-4nkn.onrender.com/docs
 
 ---
 
-## 🚀 Live API
+## 📌 Project Overview
 
-🔗 [Live Swagger UI](https://your-deployed-url.onrender.com/docs)
+This project is a production-ready Machine Learning system designed to predict stroke risk based on patient clinical and lifestyle attributes.
 
----
+It is built as a full-stack ML SaaS application including:
 
-## 🏗 Project Architecture
+- End-to-end ML pipeline
+- Medical threshold optimization
+- FastAPI backend deployment
+- Cloud-hosted frontend dashboard
+- Real-time risk visualization
+- Circular probability gauge
+- Cross-origin API integration
+- Full production deployment on Render
 
-
-stroke_prediction_project/
-│
-├── data/
-│ └── stroke_data.csv
-│
-├── models/
-│ └── best_model.pkl
-│
-├── train.py
-├── explain.py
-├── main.py
-├── requirements.txt
-└── README.md
-
+This is not a notebook demo — it is a deployed, interactive ML system.
 
 ---
 
-## ⚙️ Model Details
+## 🏗 System Architecture
+User (Browser Dashboard)
+↓
+Frontend (HTML/CSS/JS - Render Static Site)
+↓
+FastAPI Backend (Render Web Service)
+↓
+Trained ML Model (Logistic Regression + SMOTE)
+↓
+Prediction + Risk Categorization
+↓
+Response → Risk Gauge Visualization
 
-- Best Model: Logistic Regression
-- Test ROC-AUC: 0.845
-- Medical Optimized Threshold: 0.1
-- Recall improved from 18% → 74%
 
-### Why Threshold 0.1?
+---
 
-In healthcare applications:
+## 🧠 Machine Learning Pipeline
+
+### 1️⃣ Problem Type
+Binary Classification  
+Predict:
+- 1 → Stroke Risk
+- 0 → No Stroke Risk
+
+---
+
+### 2️⃣ Data Preprocessing
+
+- Handling missing values
+- One-hot encoding categorical features
+- Feature scaling
+- Train-test split (Stratified)
+- Class imbalance analysis
+
+---
+
+### 3️⃣ Imbalance Handling
+
+Stroke datasets are highly imbalanced.
+
+To address this:
+
+- Applied **SMOTE (Synthetic Minority Oversampling Technique)**
+- Used Stratified 5-Fold Cross Validation
+
+This ensures stable performance and improved minority class detection.
+
+---
+
+### 4️⃣ Model Selection
+
+Selected Model:
+- **Logistic Regression**
+
+Reasons:
+- Interpretable
+- Stable for medical domain
+- Probabilistic output
+- Works well with threshold tuning
+
+---
+
+### 5️⃣ Model Performance
+
+| Metric | Value |
+|--------|--------|
+| ROC-AUC | 0.845 |
+| Recall (Default Threshold 0.5) | 18% |
+| Recall (Optimized Threshold 0.1) | 74% |
+
+---
+
+## 🎯 Medical Threshold Optimization
+
+Default classification threshold is 0.5.
+
+However, in healthcare systems:
+
 - False Negatives are dangerous
+- Missing high-risk patients is unacceptable
 - High Recall is prioritized
-- Model optimized for safer screening
+
+Therefore, threshold was optimized to: 0.1
+
+
+This increases recall from 18% → 74%.
+
+This design decision improves patient safety.
 
 ---
 
 ## 📊 Features Used
 
 - Age
+- Gender
 - Hypertension
 - Heart Disease
+- Average Glucose Level
 - BMI
-- Avg Glucose Level
 - Smoking Status
+- Marital Status
 - Work Type
 - Residence Type
-- Marital Status
 
 ---
 
-## 🧪 Cross Validation
+## 🚀 Backend Architecture
 
-- 5-Fold Stratified Cross Validation
-- Evaluated using ROC-AUC and Recall
-- Ensured model stability
+### Framework
+- FastAPI
+
+### Features
+- REST API endpoint `/predict`
+- JSON request/response
+- Medical threshold logic
+- Probability output
+- Risk level categorization
+- CORS enabled
+- Error handling with HTTPException
+- Production deployment on Render
 
 ---
 
-## 🧠 Explainability
+## 🔄 API Usage
 
-SHAP was used to interpret feature contributions and improve model transparency.
+### Endpoint
+POST / PREDICT
 
----
 
-## 🖥 API Usage
-
-### POST /predict
-
-Example Request:
+### Example Request
 
 ```json
 {
@@ -105,53 +174,125 @@ Example Request:
   "smoking_status": "formerly smoked"
 }
 
-Example Response:
+Example Response 
 
 {
   "stroke_prediction": 1,
-  "stroke_probability": 0.90,
+  "stroke_probability": 0.9027,
   "risk_level": "High Risk",
   "threshold_used": 0.1
 }
+
+Frontend Dashboard
+Built With
+
+HTML5
+
+CSS3
+
+JavaScript (Fetch API)
+
+Features
+
+Professional SaaS dashboard layout
+
+Sidebar navigation
+
+Stats input cards
+
+Animated circular probability gauge
+
+Real-time API integration
+
+Responsive design
+
+Clean modern UI
+
+Cloud deployment on Render
+
 🛠 Tech Stack
+Machine Learning
 
 Python
+
+Pandas
+
+NumPy
 
 Scikit-learn
 
 Imbalanced-learn (SMOTE)
 
-SHAP
+Backend
 
 FastAPI
 
 Uvicorn
 
-Render (Cloud Deployment)
+Pydantic
 
-🎯 Key Achievements
+Joblib
 
-Built end-to-end ML pipeline
+Frontend
 
-Optimized classification threshold for medical safety
+HTML
 
-Implemented production-grade REST API
+CSS
 
-Deployed publicly on cloud platform
+JavaScript
 
-📌 Future Improvements
+Deployment
 
-XGBoost integration
+Render (Backend Web Service)
+
+Render (Static Site Frontend)
+
+GitHub (Version Control)
+
+📦 Project Structure
+stroke_prediction_project/
+│
+├── models/
+│   └── best_model.pkl
+│
+├── train.py
+├── explain.py
+├── main.py
+├── requirements.txt
+│
+├── index.html
+├── style.css
+└── script.js
+🔍 Engineering Highlights
+
+Imbalance handling using SMOTE
+
+Threshold optimization for medical safety
+
+Cross-validation for stability
+
+Production-grade REST API
+
+Cross-Origin Resource Sharing (CORS) handling
+
+Circular gauge visualization using CSS conic gradients
+
+End-to-end cloud deployment
+
+🧪 Future Improvements
+
+XGBoost / Ensemble learning
 
 MLflow experiment tracking
 
-CI/CD automation
-
 Docker containerization
 
-Model monitoring system
+CI/CD automation
 
-👨‍💻 Author
+Model monitoring
 
-Ganesh Pedagada
-Aspiring ML Engineer
+Authentication system
+
+Patient report PDF export
+
+Role-based access control
